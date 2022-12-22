@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+      .day {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin: 1px;
+        text-align: center;
+        font-size: 10px;
+        line-height: 14px;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart-container"></div>
+    <script>
+      // Set the data for the chart
+      const data = [
+        { date: '2022-01-01', commits: 3 },
+        { date: '2022-01-02', commits: 5 },
+        { date: '2022-01-03', commits: 2 },
+        { date: '2022-01-04', commits: 4 },
+        { date: '2022-01-05', commits: 1 },
+        { date: '2022-01-06', commits: 6 },
+        { date: '2022-01-07', commits: 8 },
+        { date: '2022-01-08', commits: 7 },
+        { date: '2022-01-09', commits: 3 },
+        { date: '2022-01-10', commits: 5 },
+        { date: '2022-01-11', commits: 4 },
+        { date: '2022-01-12', commits: 2 }
+      ];
+      
+      // Set the dimensions for the chart
+      const width = 500;
+      const height = 250;
+      
+      // Select the chart container element
+      const chartContainer = d3.select('#chart-container');
+      
+      // Set the scale for the chart
+      const xScale = d3.scaleTime()
+        .domain(d3.extent(data, d => new Date(d.date)))
+        .range([0, width]);
+      
+      // Bind the data to the chart cells and append them to the chart container
+      const cells = chartContainer.selectAll('.day')
+        .data(data)
+        .enter()
+        .append('div')
+        .attr('class', 'day')
+        .style('background-color', d => {
+          // Set the cell color based on the number of commits
+          if (d.commits > 7) {
+            return '#16a085'; // Turquoise
+          } else if (d.commits > 3) {
+            return '#f1c40f'; // Sunflower yellow
+          } else if (d.commits > 0) {
+            return '#9b59b6'; // Amethyst
+          } else {
+            return '#ffffff'; // White
+          }
+        });
+      
+      // Add the commit count to each cell
+      cells.append('span')
+        .text(d => d.commits);
+    </script>
+  </body>
+</html>
