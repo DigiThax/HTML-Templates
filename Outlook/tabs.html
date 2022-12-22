@@ -2,7 +2,7 @@
   <head>
     <title>My Email</title>
     <!-- include a table-based layout for better email client compatibility -->
-    <style type="text/css">
+    <!-- <style type="text/css">
       /* define a container for the tab content */
       .container {
         width: 100%;
@@ -12,13 +12,13 @@
       .tab-pane {
         width: 100%;
         border-collapse: collapse;
-        border: 1px solid #ddd;
+        border: 1px solid rgba(12, 78, 165, 0.842);
       }
       /* define a style for the navbar */
       .navbar {
         width: 100%;
         border-collapse: collapse;
-        border: 1px solid #ddd;
+        border: 1px solid rgb(12, 78, 165, 0.842);
       }
       /* define a style for the navbar links */
       .navbar a {
@@ -26,11 +26,59 @@
         width: 33%;
         text-align: center;
         border-collapse: collapse;
-        border: 1px solid #ddd;
+        border: 1px solid (12, 78, 165, 0.842);
       }
       /* define a style for the active navbar link */
       .navbar .active {
         background-color: #ddd;
+      }
+    </style> -->
+    <style type="text/css">
+      /* define a container for the tab content */
+      .container {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #5bc0de;
+      }
+      /* define a style for the tab panels */
+      .tab-pane {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        background-color: #4fc3f7;
+      }
+      /* define a style for the navbar */
+      .navbar {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        background-color: #4fc3f7;
+      }
+      /* define a style for the navbar links */
+      .navbar a {
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        border-collapse: collapse;
+        border: 1px solid #4fc3f7;
+        color: #0a141f;
+        text-decoration: none;
+        font-weight: bold;
+      }
+        /* define a style for the loading gif */
+      .loading-gif {
+        width: 30px;
+        height: 30px;
+        animation: spin 1s infinite linear;
+      }
+      /* define the spin animation */
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
@@ -47,9 +95,14 @@
     <table class="container" cellpadding="0" cellspacing="0">
       <tr>
         <!-- create a tab panel for page 1 -->
-        <td class="tab-pane active" id="page1" style="display: block;">
+        <td class="tab-pane active" id="page1">
           <h1>Page 1</h1>
           <p>Welcome to Page 1</p>
+          <!-- include the loading gif in the tab panel -->
+          <svg class="loading-gif" viewBox="0 0 30 30">
+            <circle cx="15" cy="15" r="10" fill="#00b0ff"/>
+            <path d="M 15 2.5 A 12.5 12.5 0 0 1 27.5 15" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="50, 62.5"/>
+          </svg>
         </td>
       </tr>
       <tr>
