@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>My Email</title>
+    <!-- include a table-based layout for better email client compatibility -->
+    <style type="text/css">
+      /* define a container for the tab content */
+      .container {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      /* define a style for the tab panels */
+      .tab-pane {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+      }
+      /* define a style for the navbar */
+      .navbar {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+      }
+      /* define a style for the navbar links */
+      .navbar a {
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+      }
+      /* define a style for the active navbar link */
+      .navbar .active {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- create a table-based navbar with tabs -->
+    <table class="navbar" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><a href="#page1" class="active" onclick="switchTabs(this)">Page 1</a></td>
+        <td><a href="#page2" onclick="switchTabs(this)">Page 2</a></td>
+        <td><a href="#page3" onclick="switchTabs(this)">Page 3</a></td>
+      </tr>
+    </table>
+    <!-- create a table-based container for the tab content -->
+    <table class="container" cellpadding="0" cellspacing="0">
+      <tr>
+        <!-- create a tab panel for page 1 -->
+        <td class="tab-pane active" id="page1" style="display: block;">
+          <h1>Page 1</h1>
+          <p>Welcome to Page 1</p>
+        </td>
+      </tr>
+      <tr>
+        <!-- create a tab panel for page 2 -->
+        <td class="tab-pane" id="page2" style="display: none;">
+          <h1>Page 2</h1>
+          <p>Welcome to Page 2</p>
+        </td>
+      </tr>
+      <tr>
+        <!-- create a tab panel for page 3 -->
+        <td class="tab-pane" id="page3" style="display: none;">
+          <h1>Page 3</h1>
+          <p>Welcome to Page 3</p>
+        </td>
+      </tr>
+    </table>
+    <!-- include JavaScript to switch between tabs -->
+    <script type="text/javascript">
+        function switchTabs(tab) {
+          // get all tab links
+          var tabLinks = document.querySelectorAll('.navbar a');
+          // remove the active class from all tab links
+          for (var i = 0; i < tabLinks.length; i++) {
+            tabLinks[i].classList.remove('active');
+          }
+          // add the active class to the clicked tab link
+          tab.classList.add('active');
+          // get all tab panels
+          var tabPanels = document.querySelectorAll('.tab-pane');
+          // hide all tab panels
+          for (var i = 0; i < tabPanels.length; i++) {
+            tabPanels[i].style.display = 'none';
+          }
+          // show the tab panel corresponding to the clicked tab link
+          var tabPanelId = tab.getAttribute('href');
+          document.querySelector(tabPanelId).style.display = 'block';
+        }
+      </script>
+      
