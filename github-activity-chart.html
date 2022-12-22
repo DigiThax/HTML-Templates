@@ -1,0 +1,84 @@
+<html>
+    <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .bar {
+        fill: #3498db;
+        }
+        .axis {
+        font-size: 10px;
+        }
+        .axis path,
+        .axis line {
+        fill: none;
+        stroke: #000;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="chart-container"></div>
+        <script>
+            // Set the data for the chart
+            const data = [
+                { type: 'Commits', count: 20 },
+                { type: 'Pull requests', count: 10 },
+                { type: 'Issues', count: 5 },
+                { type: 'Code review', count: 15 }
+            ];
+            
+            // Set the dimensions for the chart
+            const width = 400;
+            const height = 250;
+            const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            
+            // Select the chart container element
+            const chartContainer = d3.select('#chart-container');
+            
+            // Set the scales for the chart
+            const xScale = d3.scaleBand()
+                .domain(data.map(d => d.type))
+                .range([0, width])
+                .padding(0.1);
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.count)])
+                .range([height, 0]);
+            
+            // Append the SVG element to the chart container
+            const svg = chartContainer.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Append the bars to the chart
+            svg.selectAll('.bar')
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', d => xScale(d.type))
+                .attr('y', d => yScale(d.count))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d.count));
+            // Append the x-axis to the chart
+            svg.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale));
+            
+            // Append the y-axis to the chart
+            svg.append('g')
+                .attr('class', 'y axis')
+                .call(d3.axisLeft(yScale));
+            
+            // Add a label to the y-axis
+            svg.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left)
+                .attr('x', 0 - (height / 2))
+                .attr('dy', '1em')
+                .style('text-anchor', 'middle')
+                .text('Count');
+        </script>
+    </body>
+</html>

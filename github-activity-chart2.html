@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <style>
+            .axis path, .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+            }
+            
+            .dot {
+            stroke: #000;
+            stroke-width: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="chart"></div>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script>
+            const data = [
+                { x: 10, y: 20, type: 'Commits' },
+                { x: 20, y: 10, type: 'Issues' },
+                { x: 30, y: 15, type: 'Pull requests' },
+                { x: 40, y: 25, type: 'Code review' },
+            ];
+
+            const margin = { top: 20, right: 20, bottom: 30, left: 40 },
+                width = 600 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom;
+
+            const xScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.x)])
+                .range([0, width]);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.y)])
+                .range([height, 0]);
+
+            const svg = d3.select('#chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // Add a group for each data point
+            const points = svg.selectAll('.point')
+                .data(data)
+                .enter()
+                .append('g')
+                .attr('class', 'point');
+
+            // Add a circle for each data point
+            points.append('circle')
+                .attr('cx', d => xScale(d.x))
+                .attr('cy', d => yScale(d.y))
+                .attr('r', 5)
+                .attr('class', 'dot');
+
+            // Add a label for each data point
+            points.append('text')
+                .text(d => d.type)
+                .attr('x', d => xScale(d.x) + 10)
+                .attr('y', d => yScale(d.y) + 5)
+                .style('font-size', '10px');
+
+            // Append the x-axis to the chart
+            svg.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale));
+
+            // Append the y-axis to the chart
+            svg.append('g')
+                .attr('class', 'y axis')
+                .call(d3.axisLeft(yScale));
+        </script>
+    </body>
+</html>
